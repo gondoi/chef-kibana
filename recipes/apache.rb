@@ -24,7 +24,8 @@ include_recipe "apache2"
 include_recipe "apache2::mod_proxy"
 include_recipe "apache2::mod_proxy_http"
 
-web_app "#{node['kibana']['webserver_hostname']}-#{node['kibana']['webserver_port']}" do
+filename = node['kibana']['apache_conf_name'] || node['webserver_hostname']
+web_app "#{filename}-#{node['kibana']['webserver_port']}" do
   cookbook       "kibana"
   docroot        node['kibana']['installdir']
   server_name    node['kibana']['webserver_hostname']
