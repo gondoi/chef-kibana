@@ -18,7 +18,7 @@ function (Settings) {
      * elasticsearch host
      * @type {String}
      */
-    elasticsearch: window.location.protocol+"//"+window.location.hostname+":"+window.location.port,
+    elasticsearch: <%= @elasticsearch_server %>,
 
     /**
      * The default ES index to use for storing Kibana specific object

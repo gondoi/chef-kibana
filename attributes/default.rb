@@ -13,3 +13,5 @@ default['kibana']['webserver_hostname'] = node.name
 default['kibana']['webserver_aliases'] = [node.ipaddress]
 default['kibana']['webserver_listen'] = node.ipaddress
 default['kibana']['webserver_port'] = 80
+
+default['kibana']['elasticsearch']['server'] = "window.location.protocol+\"//\"+window.location.hostname+\":\"+window.location.port"
