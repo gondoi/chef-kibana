@@ -34,4 +34,10 @@ server {
     proxy_pass http://<%= @es_server %>:<%= @es_port %>;
     proxy_read_timeout 90;
   }
+  
+<% unless node[:kibana][:nginx][:users].empty? %>
+    # Authorize access
+    auth_basic           "Kibana";
+    auth_basic_user_file <%= node[:kibana][:nginx][:passwords_file] %>;
+<% end %>
 }

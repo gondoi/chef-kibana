@@ -17,6 +17,39 @@
 # limitations under the License.
 #
 
+ruby_block "add users to passwords file" do
+  block do
+    require 'webrick/httpauth/htpasswd'
+    @htpasswd = WEBrick::HTTPAuth::Htpasswd.new(node[:kibana][:nginx][:passwords_file])
+
+    node[:kibana][:nginx][:users].each do |u|
+      Chef::Log.debug "Adding user '#{u['username']}' to #{node[:kibana][:nginx][:passwords_file]}\n"
+      @htpasswd.set_passwd( 'Kibana', u['username'], u['password'] )
+    end
+
+    @htpasswd.flush
+  end
+
+  not_if { node[:kibana][:nginx][:users].empty? }
+end
+
+if node['kibana']['user'].empty?
+  unless node['kibana']['webserver'].empty?
+    webserver = node['kibana']['webserver']
+    kibana_user = node[webserver]['user']
+  else
+    kibana_user = "nobody"
+  end
+else
+  kibana_user = node['kibana']['user']
+end
+
+# Ensure proper permissions and existence of the passwords file
+#
+file node[:kibana][:nginx][:passwords_file] do
+  owner kibana_user and mode 0755
+  action :touch
+end
 
 node.set['nginx']['default_site_enabled'] = node['kibana']['nginx']['enable_default_site']
 
