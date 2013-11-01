@@ -31,6 +31,7 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 - `node['kibana']['webserver_aliases']` - Array of any secondary hostnames that are valid vhosts
 - `node['kibana']['webserver_listen']` - The ip address the web server will listen on
 - `node['kibana']['webserver_port']` - The port the webserver will listen on
+- `node['kibana']['elasticsearch']['server']` - The URL or a javascript expression with for the elasticsearch server to connect to
 
 #### kibana::nginx
 

@@ -62,6 +62,9 @@ template "#{node['kibana']['installdir']}/current/config.js" do
   cookbook node['kibana']['config_cookbook']
   mode "0750"
   user kibana_user
+  variables(
+    :elasticsearch_server => node['kibana']['elasticsearch']['server']
+  )
 end
 
 link "#{node['kibana']['installdir']}/current/app/dashboards/default.json" do
