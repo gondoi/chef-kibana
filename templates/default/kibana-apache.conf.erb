@@ -31,5 +31,7 @@
     ProxyPassMatch http://<%= @params[:es_server] %>:<%= @params[:es_port] %>
     ProxyPassReverse http://<%= @params[:es_server] %>:<%= @params[:es_port] %>
   </LocationMatch>
+
+  <%= node['kibana']['apache']['other_options'] %>
  
 </VirtualHost>
